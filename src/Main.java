@@ -18,11 +18,12 @@ public class Main{
         final Notes[] notes = new Notes[5];
         int numNotes = 0;
         int answer;
+        int deleteNote;
         Scanner sc = new Scanner(System.in);
 
         do {
             System.out.println("Olá, o que você gostaria de fazer?");
-            System.out.println("Opção 1: Criar nota. \nOpção 2: Listar notas. \nOpção 3: Sair.");
+            System.out.println("Opção 1: Criar nota. \nOpção 2: Listar notas. \nOpção 3: Deletar nota. \nOpção 4: Sair.");
             System.out.print("Eu quero: ");
             answer = sc.nextInt();
             sc.nextLine(); //Limpar o buffer
@@ -43,17 +44,41 @@ public class Main{
             } else if (answer == 2) {
                 if (numNotes > 0){
                     for (int i = 0; i < numNotes; i++) {
-                        System.out.println(notes[i].title);
+                        System.out.println(i + " - " + notes[i].title); //imprime o índice do array mais o nome da nota.
                     }
                 }else {
                     System.out.println("Você não possui notas.");
                 }
+
             } else if (answer == 3) {
+                if (numNotes == 0){
+                    System.out.println("Você não possui notas para serem deletadas.");
+
+                }else {
+                    System.out.println("Qual nota você gostaria de deletar?");
+                    sc.nextLine(); //Limpar o buffer.
+                    deleteNote = sc.nextInt();
+
+                    //verifica se o valor digitado condiz com alguma nota existente.
+                    if (deleteNote >= 0 && deleteNote < numNotes){
+                        for (int i = deleteNote; i < numNotes; i++) {
+                            notes[i] = notes[i + 1];
+                        }
+                        System.out.println("Nota deletada com sucesso!");
+                        notes[numNotes - 1] = null;
+                        numNotes--;
+
+                    }else {
+                        System.out.println("Essa nota não existe, selecione uma opção válida.");
+                    }
+                }
+
+            } else if (answer == 4) {
                 System.out.println("Até logo!");
             } else {
-                System.out.println("OPÇÃO INVÁLIDA! \nPor favor digite uma opção válida.");
+                System.out.println("OPÇÃO INVÁLIDA! \nPor favor digite um valor válido.");
             }
-        }while(answer != 3);
+        }while(answer != 4);
         sc.close();
     }
 }
