@@ -19,12 +19,14 @@ public class Main{
         int numNotes = 0;
         int answer;
         int viewNote;
+        int editNote;
+        int editChosenNote;
         int deleteNote;
         Scanner sc = new Scanner(System.in);
 
         do {
             System.out.println("Olá, o que você gostaria de fazer?");
-            System.out.println("Opção 1: Criar nota. \nOpção 2: Listar notas. \nOpção 3: Visualizar notas. \nOpção 4: Deletar nota. \nOpção 5: Sair.");
+            System.out.println("Opção 1: Criar nota. \nOpção 2: Listar notas. \nOpção 3: Visualizar notas. \nOpção 4: Editar nota. \nOpção 5: Deletar nota. \nOpção 6: Sair.");
             System.out.print("Eu quero: ");
             answer = sc.nextInt();
             sc.nextLine(); //Limpar o buffer
@@ -44,7 +46,7 @@ public class Main{
 
             } else if (answer == 2) {
                 if (numNotes > 0){
-                    ListarNotas(notes, numNotes);
+                    listarNotas(notes, numNotes);
 
                 }else {
                     System.out.println("Você não possui notas.");
@@ -52,7 +54,7 @@ public class Main{
 
             } else if (answer == 3) {
                 System.out.println("Qual nota você gostaria de abrir?");
-                ListarNotas(notes, numNotes);
+                listarNotas(notes, numNotes);
                 viewNote = sc.nextInt();
                 sc.nextLine(); //Limpa o buffer.
 
@@ -65,11 +67,45 @@ public class Main{
 
             } else if (answer == 4) {
                 if (numNotes == 0){
+                    System.out.println("Você não possui notas para serem editadas.");
+                }
+                else {
+                    System.out.println("Qual nota você gostaria de editar?");
+                    listarNotas(notes, numNotes);
+                    editNote = sc.nextInt();
+                    sc.nextLine(); //Limpa o buffer.
+                    if (editNote >= 0 && editNote < numNotes){
+                        System.out.println("O que você quer editar? \nOpção 1: Editar título. \nOpção 2: Editar texto. \nOpção 3: Editar ambos. \nOpção 4: Cancelar.");
+                        editChosenNote = sc.nextInt();
+                        sc.nextLine();
+
+                        if (editChosenNote == 1){
+                            editarTitulo(notes[editNote], sc);
+
+                        } else if (editChosenNote == 2) {
+                            editarTexto(notes[editNote], sc);
+
+                        } else if (editChosenNote == 3) {
+                            editarTituloETexto(notes[editNote], sc);
+
+                        } else if (editChosenNote == 4) {
+                            System.out.println("Cancelando...");
+
+                        }else {
+                            System.out.println("Nota inexistente ou inválida.");
+                        }
+
+                    }
+
+                }
+
+            } else if (answer == 5) {
+                if (numNotes == 0){
                     System.out.println("Você não possui notas para serem deletadas.");
 
                 }else {
                     System.out.println("Qual nota você gostaria de deletar?");
-                    ListarNotas(notes, numNotes);
+                    listarNotas(notes, numNotes);
                     deleteNote = sc.nextInt();
                     sc.nextLine(); //Limpar o buffer.
 
@@ -87,21 +123,42 @@ public class Main{
                     }
                 }
 
-            } else if (answer == 5) {
+            } else if (answer == 6) {
                 System.out.println("Até logo!");
 
             } else {
                 System.out.println("OPÇÃO INVÁLIDA! \nPor favor digite um valor válido.");
             }
-        }while(answer != 5);
+        }while(answer != 6);
         sc.close();
     }
 
 
-    static void ListarNotas(Notes[] notes, int numNotes){
+    static void listarNotas(Notes[] notes, int numNotes){
         for (int i = 0; i < numNotes; i++) {
             System.out.println(i + " - " + notes[i].title); //imprime o índice do array mais o nome da nota.
         }
+    }
+
+
+    static void editarTitulo(Notes note, Scanner sc){
+        System.out.println("Digite o novo título: ");
+        note.title = sc.nextLine();
+    }
+
+
+    static void editarTexto(Notes note, Scanner sc){
+        System.out.println("Digite o novo texto: ");
+        note.text = sc.nextLine();
+    }
+
+
+    static void editarTituloETexto(Notes note, Scanner sc){
+        System.out.println("Digite o novo título: ");
+        note.title = sc.nextLine();
+
+        System.out.println("Digite o novo texto: ");
+        note.text = sc.nextLine();
     }
 
 }
