@@ -1,15 +1,6 @@
-//CRIAR UM MENU QUE POSSIBILITE:
-//Criar uma nota
-//Listar notas
-//Ver uma nota específica
-//Editar uma nota
-//Remover uma nota
-//Sair
+package appnotes;
+
 import java.util.Scanner;
-class Notes{
-    String title;
-    String text;
-}
 
 //FUNÇÃO DO MAIN:
 //Mostrar o menu; ler a opção do usuário; chamar a ação correta; repetir até o usuário sair.
@@ -46,7 +37,7 @@ public class Main{
 
             } else if (answer == 2) {
                 if (numNotes > 0){
-                    listarNotas(notes, numNotes);
+                    Functions.listarNotas(notes, numNotes);
 
                 }else {
                     System.out.println("Você não possui notas.");
@@ -54,7 +45,7 @@ public class Main{
 
             } else if (answer == 3) {
                 System.out.println("Qual nota você gostaria de abrir?");
-                listarNotas(notes, numNotes);
+                Functions.listarNotas(notes, numNotes);
                 viewNote = sc.nextInt();
                 sc.nextLine(); //Limpa o buffer.
 
@@ -71,7 +62,7 @@ public class Main{
                 }
                 else {
                     System.out.println("Qual nota você gostaria de editar?");
-                    listarNotas(notes, numNotes);
+                    Functions.listarNotas(notes, numNotes);
                     editNote = sc.nextInt();
                     sc.nextLine(); //Limpa o buffer.
                     if (editNote >= 0 && editNote < numNotes){
@@ -80,13 +71,13 @@ public class Main{
                         sc.nextLine();
 
                         if (editChosenNote == 1){
-                            editarTitulo(notes[editNote], sc);
+                            Functions.editarTitulo(notes[editNote], sc);
 
                         } else if (editChosenNote == 2) {
-                            editarTexto(notes[editNote], sc);
+                            Functions.editarTexto(notes[editNote], sc);
 
                         } else if (editChosenNote == 3) {
-                            editarTituloETexto(notes[editNote], sc);
+                            Functions.editarTituloETexto(notes[editNote], sc);
 
                         } else if (editChosenNote == 4) {
                             System.out.println("Cancelando...");
@@ -105,7 +96,7 @@ public class Main{
 
                 }else {
                     System.out.println("Qual nota você gostaria de deletar?");
-                    listarNotas(notes, numNotes);
+                    Functions.listarNotas(notes, numNotes);
                     deleteNote = sc.nextInt();
                     sc.nextLine(); //Limpar o buffer.
 
@@ -132,33 +123,4 @@ public class Main{
         }while(answer != 6);
         sc.close();
     }
-
-
-    static void listarNotas(Notes[] notes, int numNotes){
-        for (int i = 0; i < numNotes; i++) {
-            System.out.println(i + " - " + notes[i].title); //imprime o índice do array mais o nome da nota.
-        }
-    }
-
-
-    static void editarTitulo(Notes note, Scanner sc){
-        System.out.println("Digite o novo título: ");
-        note.title = sc.nextLine();
-    }
-
-
-    static void editarTexto(Notes note, Scanner sc){
-        System.out.println("Digite o novo texto: ");
-        note.text = sc.nextLine();
-    }
-
-
-    static void editarTituloETexto(Notes note, Scanner sc){
-        System.out.println("Digite o novo título: ");
-        note.title = sc.nextLine();
-
-        System.out.println("Digite o novo texto: ");
-        note.text = sc.nextLine();
-    }
-
 }

@@ -1,4 +1,4 @@
-# App Notes (Java)
+# App appnotes.Notes (Java)
 
 Projeto simples de um aplicativo de notas feito em Java, desenvolvido com o objetivo de praticar lógica de programação,
 uso de arrays, objetos, métodos e interação via terminal.
@@ -27,6 +27,6 @@ Este projeto foi criado como parte do meu aprendizado em Java, focando em:
    ```bash
    git clone https://github.com/seu-usuario/app-notes.git
 2. Compile o código:
-   javac Main.java
+   javac appnotes.Main.java
 4. Execute:
-   java Main
+   java appnotes.Main
