@@ -1,13 +1,13 @@
-package appnotes;
+package com.apolokll.appnotes;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 //FUNÇÃO DO MAIN:
 //Mostrar o menu; ler a opção do usuário; chamar a ação correta; repetir até o usuário sair.
 public class Main{
     public static void main(String[] args) {
-        final Notes[] notes = new Notes[5];
-        int numNotes = 0;
+        ArrayList<Notes> notes = new ArrayList<>();
         int answer;
         int viewNote;
         int editNote;
@@ -21,23 +21,20 @@ public class Main{
             System.out.print("Eu quero: ");
             answer = sc.nextInt();
             sc.nextLine(); //Limpar o buffer
+
             if (answer == 1){
-                if (numNotes < notes.length){
-                    notes[numNotes] = new Notes(); //Cria a nota.
+                System.out.print("Digite um nome para sua nota: ");
+                String title = sc.nextLine();
 
-                    System.out.print("Dê um nome a sua nota: ");
-                    notes[numNotes].title = sc.nextLine();
+                System.out.println("Digite o conteúdo da sua nota: ");
+                String text = sc.nextLine();
 
-                    System.out.println("Digite o conteúdo da nota: ");
-                    notes[numNotes].text = sc.nextLine();
-                    numNotes++; //Adiciona 1 ao contador de notas
-                }else {
-                    System.out.println("Desculpe, mas não há espaço para mais notas.");
-                }
+                Notes note = new Notes(title, text);
+                notes.add(note);
 
             } else if (answer == 2) {
-                if (numNotes > 0){
-                    Functions.listarNotas(notes, numNotes);
+                if (!notes.isEmpty()){
+                    NotesServices.listarNotas(notes);
 
                 }else {
                     System.out.println("Você não possui notas.");
@@ -45,39 +42,34 @@ public class Main{
 
             } else if (answer == 3) {
                 System.out.println("Qual nota você gostaria de abrir?");
-                Functions.listarNotas(notes, numNotes);
+                NotesServices.listarNotas(notes);
                 viewNote = sc.nextInt();
                 sc.nextLine(); //Limpa o buffer.
+                NotesServices.viewNote(notes, viewNote);
 
-                if (viewNote >= 0 && viewNote < numNotes){
-                    System.out.println(notes[viewNote].text);
-
-                }else {
-                    System.out.println("A nota digitada não existe.");
-                }
 
             } else if (answer == 4) {
-                if (numNotes == 0){
+                if (notes.isEmpty()){
                     System.out.println("Você não possui notas para serem editadas.");
                 }
                 else {
                     System.out.println("Qual nota você gostaria de editar?");
-                    Functions.listarNotas(notes, numNotes);
+                    NotesServices.listarNotas(notes);
                     editNote = sc.nextInt();
                     sc.nextLine(); //Limpa o buffer.
-                    if (editNote >= 0 && editNote < numNotes){
+                    if (editNote >= 0 && editNote < notes.size()){
                         System.out.println("O que você quer editar? \nOpção 1: Editar título. \nOpção 2: Editar texto. \nOpção 3: Editar ambos. \nOpção 4: Cancelar.");
                         editChosenNote = sc.nextInt();
                         sc.nextLine();
 
                         if (editChosenNote == 1){
-                            Functions.editarTitulo(notes[editNote], sc);
+                            NotesServices.editarTitulo(notes, sc, editNote);
 
                         } else if (editChosenNote == 2) {
-                            Functions.editarTexto(notes[editNote], sc);
+                            NotesServices.editarTexto(notes, sc, editNote);
 
                         } else if (editChosenNote == 3) {
-                            Functions.editarTituloETexto(notes[editNote], sc);
+                            NotesServices.editarTituloETexto(notes, sc, editNote);
 
                         } else if (editChosenNote == 4) {
                             System.out.println("Cancelando...");
@@ -91,27 +83,15 @@ public class Main{
                 }
 
             } else if (answer == 5) {
-                if (numNotes == 0){
+                if (notes.isEmpty()){
                     System.out.println("Você não possui notas para serem deletadas.");
 
                 }else {
                     System.out.println("Qual nota você gostaria de deletar?");
-                    Functions.listarNotas(notes, numNotes);
+                    NotesServices.listarNotas(notes);
                     deleteNote = sc.nextInt();
                     sc.nextLine(); //Limpar o buffer.
-
-                    //verifica se o valor digitado condiz com alguma nota existente.
-                    if (deleteNote >= 0 && deleteNote < numNotes){
-                        for (int i = deleteNote; i < numNotes; i++) {
-                            notes[i] = notes[i + 1];
-                        }
-                        System.out.println("Nota deletada com sucesso!");
-                        notes[numNotes - 1] = null;
-                        numNotes--;
-
-                    }else {
-                        System.out.println("Essa nota não existe, selecione uma opção válida.");
-                    }
+                    NotesServices.deleteNote(notes, deleteNote);
                 }
 
             } else if (answer == 6) {
