@@ -1,4 +1,7 @@
-package com.apolokll.appnotes;
+package com.apolokll.appnotes.ui;
+
+import com.apolokll.appnotes.model.Notes;
+import com.apolokll.appnotes.service.NotesServices;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -63,18 +66,28 @@ public class Main{
                         sc.nextLine();
 
                         if (editChosenNote == 1){
-                            NotesServices.editarTitulo(notes, sc, editNote);
+                            System.out.print("Digite o novo título: ");
+                            String newTitle = sc.nextLine();
+                            NotesServices.editarTitulo(notes, newTitle, editNote);
 
                         } else if (editChosenNote == 2) {
-                            NotesServices.editarTexto(notes, sc, editNote);
+                            System.out.print("Digite o novo texto: ");
+                            String newText = sc.nextLine();
+                            NotesServices.editarTexto(notes, newText, editNote);
 
                         } else if (editChosenNote == 3) {
-                            NotesServices.editarTituloETexto(notes, sc, editNote);
+                            System.out.print("Digite o novo título: ");
+                            String newTitle = sc.nextLine();
+
+                            System.out.print("Digite o novo texto: ");
+                            String newText = sc.nextLine();
+
+                            NotesServices.editarTituloETexto(notes, newTitle, newText, editNote);
 
                         } else if (editChosenNote == 4) {
                             System.out.println("Cancelando...");
 
-                        }else {
+                        } else {
                             System.out.println("Nota inexistente ou inválida.");
                         }
 
