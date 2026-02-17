@@ -1,16 +1,15 @@
 package com.apolokll.appnotes.ui;
 
 import com.apolokll.appnotes.model.Notes;
+import com.apolokll.appnotes.repository.NotesRepository;
 import com.apolokll.appnotes.service.NotesServices;
 
 import java.util.Scanner;
 import java.util.ArrayList;
 
-//FUNÇÃO DO MAIN:
-//Mostrar o menu; ler a opção do usuário; chamar a ação correta; repetir até o usuário sair.
 public class Main{
     public static void main(String[] args) {
-        ArrayList<Notes> notes = new ArrayList<>();
+        ArrayList<Notes> notes = NotesRepository.load();
         int answer;
         int viewNote;
         int editNote;
@@ -34,6 +33,8 @@ public class Main{
 
                 Notes note = new Notes(title, text);
                 notes.add(note);
+
+                NotesRepository.save(notes);
 
             } else if (answer == 2) {
                 if (!notes.isEmpty()){
@@ -93,6 +94,7 @@ public class Main{
 
                     }
 
+                    NotesRepository.save(notes);
                 }
 
             } else if (answer == 5) {
@@ -105,6 +107,8 @@ public class Main{
                     deleteNote = sc.nextInt();
                     sc.nextLine(); //Limpar o buffer.
                     NotesServices.deleteNote(notes, deleteNote);
+
+                    NotesRepository.save(notes);
                 }
 
             } else if (answer == 6) {
