@@ -1,58 +1,68 @@
-# App Notes 📝
+# 📝 AppNotes
 
-Aplicação simples de terminal para criação e gerenciamento de notas, desenvolvida em Java com foco em aprendizado e evolução gradual de boas práticas de programação.
+AppNotes is a simple CLI note management system built in Java.
 
-## 📌 Funcionalidades
+## 🚀 Features
 
-- Criar notas (título e texto)
-- Listar notas
-- Visualizar nota pelo índice
-- Editar título e/ou texto
-- Deletar notas
-- Menu interativo via terminal
+- Create notes
+- List notes
+- View note details
+- Edit notes
+- Delete notes
+- File persistence (data saved locally)
 
-## 🛠️ Tecnologias utilizadas
+## 🏗️ Architecture
+
+The project follows a layered structure:
+
+- `model` → Note entity
+- `service` → Business logic
+- `repository` → File persistence (save/load)
+- `ui` → User interaction (CLI)
+
+## 💾 Persistence
+
+Notes are stored in a local `.txt` file using a custom serialization format:
+
+title;text
+
+The system loads all notes on startup and saves automatically after changes.
+
+## 🛠️ Technologies
 
 - Java
+- File I/O (BufferedReader / BufferedWriter)
 - ArrayList
-- Scanner
-- Programação orientada a objetos
+- OOP principles
 
-## 🧱 Estrutura do projeto
+## 📌 Version
 
-- `Main`  
-  Responsável pela interação com o usuário (menu, entrada de dados e fluxo da aplicação).
+Current version: **v3.0**
+- Added file persistence
+- Implemented repository layer
+- Automatic load on startup
 
-- `Notes`  
-  Classe modelo que representa uma nota (título e texto).
+---
 
-- `NotesServices`  
-  Contém as regras de negócio da aplicação, como listar, editar, visualizar e deletar notas.
+## 🤖 AI Assistance Disclaimer
 
-## 📈 Evolução do projeto
+This project was developed by me as a learning exercise.
 
-- **V1**  
-  Implementação inicial utilizando arrays e lógica concentrada no `main`.
+AI tools were used **only for conceptual guidance, explanations, and architectural direction**.  
+All code was written, structured, and understood by me.
 
-- **V2 (atual)**  
-  - Migração para `ArrayList`
-  - Separação de responsabilidades
-  - Criação de classes de modelo e serviço
-  - Código mais organizado e legível
+The goal of using AI was to enhance learning — not to copy solutions.
 
-- **V3 (planejada)**  
-  - Persistência de notas em arquivos
-  - Melhor separação arquitetural
-  - Remoção de entrada de dados (Scanner) da camada de serviço
+---
 
-## ⚠️ Aviso sobre uso de IA
+## 📈 Future Improvements
 
-Este projeto contou com **auxílio de inteligência artificial apenas para esclarecimento de dúvidas conceituais e revisão de lógica**.
+- Better exception handling
+- Input validation improvements
+- Migration to database
+- REST API version (Spring Boot)
+- Security improvements
 
-Nenhum código foi copiado pronto.  
-Todas as implementações foram escritas, adaptadas e compreendidas pelo autor como parte do processo de aprendizado.
+---
 
-## 👤 Autor
-
-Desenvolvido por **Apolokll**  
-Projeto com fins educacionais 🚀
+Developed by Apolo.
